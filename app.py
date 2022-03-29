@@ -4,14 +4,14 @@ import numpy as np
 from flask import Flask, request, jsonify, render_template
 import pickle
 
-app = Flask(__name__)
+new = Flask(__name__)
 model = pickle.load(open('model.pkl', 'rb'))
 
-@app.route('/')
+@new.route('/')
 def home():
     return render_template('index.html')
 
-@app.route('/predict',methods=['POST'])
+@new.route('/predict',methods=['POST'])
 def predict():
     '''
     #For rendering results on HTML GUI
@@ -27,7 +27,7 @@ def predict():
         
     return render_template('index.html', prediction_text='YOU WILL {}'.format(r))
 
-@app.route('/predict_api',methods=['POST'])
+@new.route('/predict_api',methods=['POST'])
 def predict_api():
     '''
     #For direct API calls trought request
@@ -39,4 +39,4 @@ def predict_api():
     return jsonify(output)
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    new.run(debug=True)
